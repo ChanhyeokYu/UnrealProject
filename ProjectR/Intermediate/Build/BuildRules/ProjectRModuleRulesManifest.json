@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\CProject\\UnrealProject\\First\\ProjectR\\Source\\ProjectR\\ProjectR.Build.cs",
+		"D:\\CProject\\UnrealProject\\First\\ProjectR\\Source\\ProjectR.Target.cs",
+		"D:\\CProject\\UnrealProject\\First\\ProjectR\\Source\\ProjectREditor.Target.cs"
+	],
+	"EngineVersion": "5.5.0"
+}
