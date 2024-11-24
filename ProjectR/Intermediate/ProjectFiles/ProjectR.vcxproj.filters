@@ -11,6 +11,7 @@
     <None Include="..\..\Source\ProjectREditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -37,6 +38,34 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\ProjectR\ProjectR.h">
       <Filter>Source\ProjectR</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\ProjectR\Actor">
+      <UniqueIdentifier>{71124526-af3a-4d89-8bf4-eb5310b02625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ProjectR\Actor\Character">
+      <UniqueIdentifier>{320fef69-58dc-413c-9d3c-45820ff3a4ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ProjectR\Controll">
+      <UniqueIdentifier>{308b34c9-f1cd-4966-ae8b-b96fccf458c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ProjectR\Controll\Controller">
+      <UniqueIdentifier>{b1098878-ff81-464f-9e0d-220f6571f726}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\ProjectR\MainCharacter.h">
+      <Filter>Source\ProjectR\Actor\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ProjectR\MainCharacter.cpp">
+      <Filter>Source\ProjectR\Actor\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ProjectR\MainPlayerController.h">
+      <Filter>Source\ProjectR\Controll\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ProjectR\MainPlayerController.cpp">
+      <Filter>Source\ProjectR\Controll\Controller</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

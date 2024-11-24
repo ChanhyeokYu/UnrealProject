@@ -344,3 +344,7 @@ Shared/PDL/PDL_S_Register.h
 Output
 
 # protobuf
+Saved/
+DerivedDataCache/
+Intermediate/
+Config/

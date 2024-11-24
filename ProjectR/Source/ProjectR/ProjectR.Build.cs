@@ -15,7 +15,10 @@ public class ProjectR : ModuleRules
 			"Engine", 
 			"InputCore", 
 			"EnhancedInput",
-			
+			// 추가 대상
+			// 애니메이션
+			// 나이아가라
+			//
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
