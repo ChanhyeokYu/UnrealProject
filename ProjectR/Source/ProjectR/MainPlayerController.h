@@ -9,6 +9,8 @@
 class UInputMappingContext;
 class UInputAction;
 
+struct FInputActionValue;
+
 /**
  * 
  */
@@ -28,9 +30,10 @@ public:
 	void MappingContext();
 	void BindingInput();
 
-	void PlayerMove(const struct FInputActionValue& value);
-	void PlayerAction(const struct FInputActionValue& value);
-	void PlayerMouseMove(const struct FInputActionValue& value);
+	void PlayerMove(const FInputActionValue& value);
+	void PlayerAction(const FInputActionValue& value);
+	void PlayerMouseMove(const FInputActionValue& value);
+	void PlayerUtils(const FInputActionValue& value);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mapping")
@@ -43,5 +46,7 @@ public:
 	TSoftObjectPtr<UInputAction> _playerAction = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TSoftObjectPtr<UInputAction> _playerMouseMove = nullptr;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TSoftObjectPtr<UInputAction> _PlayerUtils= nullptr;
+
 };

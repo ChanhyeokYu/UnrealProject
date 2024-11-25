@@ -27,8 +27,9 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
-	virtual void CharacterMove();
-	virtual void CharacterAction();
-	virtual	void CharacterMouseMove();
+	virtual void CharacterMove() {};
+	virtual void CharacterAction() {};
+	virtual	void CharacterMouseMove() {};
+
 
 };

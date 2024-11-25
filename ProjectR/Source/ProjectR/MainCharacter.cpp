@@ -34,15 +34,5 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
-void AMainCharacter::CharacterMove()
-{
-}
 
-void AMainCharacter::CharacterAction()
-{
-}
-
-void AMainCharacter::CharacterMouseMove()
-{
-}
 

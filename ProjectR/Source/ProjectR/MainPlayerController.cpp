@@ -7,7 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "MainCharacter.h"
-
+#include "CharacterPool.h"
 
 
 AMainPlayerController::AMainPlayerController()
@@ -18,14 +18,14 @@ AMainPlayerController::AMainPlayerController()
 void AMainPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	MappingContext();
 
-	
+	MappingContext();
 }
 
 void AMainPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
+
 	BindingInput();
 }
 
@@ -65,6 +65,10 @@ void AMainPlayerController::BindingInput()
 	{
 		_playerMouseMove.LoadSynchronous();
 	}
+	if (!_PlayerUtils.IsValid())
+	{
+		_PlayerUtils.LoadSynchronous();
+	}
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
@@ -79,6 +83,11 @@ void AMainPlayerController::BindingInput()
 		if (_playerMouseMove)
 		{
 			EnhancedInputComponent->BindAction(_playerMouseMove.Get(), ETriggerEvent::Triggered, this, &ThisClass::PlayerMouseMove);
+		}
+		if (_PlayerUtils)
+		{
+			EnhancedInputComponent->BindAction(_PlayerUtils.Get(), ETriggerEvent::Triggered, this, &ThisClass::PlayerMouseMove);
+
 		}
 	}
 }
@@ -101,6 +110,8 @@ void AMainPlayerController::PlayerMove(const FInputActionValue& value)
 
 void AMainPlayerController::PlayerAction(const FInputActionValue& value)
 {
+	AMainCharacter* mainCharacter = Cast<AMainCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
+	mainCharacter->CharacterAction();
 }
 
 void AMainPlayerController::PlayerMouseMove(const FInputActionValue& value)
@@ -110,4 +121,17 @@ void AMainPlayerController::PlayerMouseMove(const FInputActionValue& value)
 
 	pawn->AddControllerYawInput(lookAxisVector.X);
 	pawn->AddControllerPitchInput(lookAxisVector.Y);
+}
+
+void AMainPlayerController::PlayerUtils(const FInputActionValue& value)
+{
+	/*switch (value.Get<int32>())
+	{
+	case 1:
+		break;
+	case 2:
+		break;
+	default:
+		break;
+	}*/
 }
