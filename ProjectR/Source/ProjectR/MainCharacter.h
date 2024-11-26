@@ -31,5 +31,10 @@ public:
 	virtual void CharacterAction() {};
 	virtual	void CharacterMouseMove() {};
 
+	virtual int32 GetOwnNum() { return _ownNum; }
+	virtual void SetOwnNum(int32 ownNum) { _ownNum = ownNum; }
 
+protected:
+	int32 _ownNum = 0;
+	
 };

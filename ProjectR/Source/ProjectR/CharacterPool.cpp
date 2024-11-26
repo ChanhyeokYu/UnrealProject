@@ -14,11 +14,17 @@ ACharacterPool::ACharacterPool()
 
 }
 
+void ACharacterPool::PreInitializeComponents()
+{
+	Super::PreInitializeComponents();
+	GetInstance()->_world = GetWorld();
+	GetInstance()->CreateCharacterPool();
+}
+
 // Called when the game starts or when spawned
-void ACharacterPool::BeginPlay()
+void ACharacterPool::BeginPlay() 
 {
 	Super::BeginPlay();
-
 }
 
 // Called every frame
@@ -35,53 +41,60 @@ void ACharacterPool::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
-void ACharacterPool::CharacterInsert(AMainCharacter* mainCharacter)
+void ACharacterPool::CharacterInsert(AMainCharacter* insertPlayer ,int32 characterNum)
 {
-	AMainCharacter* nowPlayer = Cast<AMainCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
-	mainCharacter = nowPlayer;
-}
+	_characterPool[characterNum - 1].swapCharacter = insertPlayer;
 
-AMainCharacter* ACharacterPool::CharacterAcquire(int32 characterNum)
-{
-
-	int32 idx = _characterPool.IndexOfByPredicate([characterNum](const FCharacterStruct& element)
-		{
-			return element.characterNum == characterNum;
-		});
-
-	if (idx != INDEX_NONE && _characterPool[idx].characterFront)
+	int32 idx = GetCharacterIndex(characterNum);
+	if (!_characterPool[idx - 1].isCharacter)
 	{
-		return nullptr;
+		_characterPool[idx - 1].isCharacter = true;
 	}
-	else
-	{
-		_characterPool[characterNum - 1].characterNum = characterNum;
-	}
-
-	for (FCharacterStruct poolStruct : _characterPool)
-	{
-		if (poolStruct.characterNum == characterNum)
-		{
-			if (poolStruct.characterFront)
-			{
-				poolStruct.characterFront = true;
-				return poolStruct.swapCharacter;
-			}
-			else
-			{
-				return nullptr;
-			}
-		}
-	}
-	return nullptr;
 
 }
 
-void ACharacterPool::CreatePool(UWorld* world)
+void ACharacterPool::CharacterRelease(int32 characterNum)
 {
+	AMainCharacter* mainCharacter = Cast<AMainCharacter>(_world->GetFirstPlayerController()->GetCharacter());
+	check(mainCharacter);
+
+	int32 mainCharacterIdx = mainCharacter->GetOwnNum();
+
+	if (_characterPool[mainCharacterIdx -1].characterNum == characterNum)
+	{
+		return;
+	}
+
+	int32 idx = GetCharacterIndex(characterNum);
+	if (idx == -1)
+	{
+		return;
+	}
+	_characterPool[idx - 1].characterFront = false;
+
+}
+
+void ACharacterPool::CharacterSwap(int32 swapCharacterNum)
+{
+	int32 idx = GetCharacterIndex(swapCharacterNum);
+	if (idx == -1)
+	{
+		return;
+	}
+
+	if (_characterPool[idx - 1].isCharacter)
+	{
+		_characterPool[idx - 1].characterFront = true;
+	}
+
+}
+
+void ACharacterPool::CreateCharacterPool()
+{
+	UWorld* world = GetWorld();
 	for (int32 i = 0; i < _characterPoolSize; i++)
 	{
-		AMainCharacter* newCharacter = world->SpawnActor<AMainCharacter>(AMainCharacter::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+		AMainCharacter* newCharacter = _world->SpawnActor<AMainCharacter>(AMainCharacter::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
 		{
 			newCharacter->SetActorTickEnabled(false);
 			newCharacter->SetActorEnableCollision(false);
@@ -95,5 +108,13 @@ void ACharacterPool::CreatePool(UWorld* world)
 			_characterPool.Add(newCharacterStruce);
 		}
 	}
+}
+
+int32 ACharacterPool::GetCharacterIndex(int32 characterNum)
+{
+	return 	_characterPool.IndexOfByPredicate([characterNum](const FCharacterStruct& element)
+		{
+			return element.characterNum == characterNum;
+		});
 }
 

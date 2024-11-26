@@ -86,7 +86,9 @@ void AMainPlayerController::BindingInput()
 		}
 		if (_PlayerUtils)
 		{
-			EnhancedInputComponent->BindAction(_PlayerUtils.Get(), ETriggerEvent::Triggered, this, &ThisClass::PlayerMouseMove);
+			//EnhancedInputComponent->BindAction(_PlayerUtils.Get(), ETriggerEvent::Triggered, this, &ThisClass::PlayerUtils);
+			InputComponent->BindKey(EKeys::One,	 IE_Pressed, this, &ThisClass::PlayerKey);
+			InputComponent->BindKey(EKeys::Two, IE_Pressed, this, &ThisClass::PlayerKey);
 
 		}
 	}
@@ -123,15 +125,34 @@ void AMainPlayerController::PlayerMouseMove(const FInputActionValue& value)
 	pawn->AddControllerPitchInput(lookAxisVector.Y);
 }
 
-void AMainPlayerController::PlayerUtils(const FInputActionValue& value)
+void AMainPlayerController::PlayerKey(FKey key)
 {
-	/*switch (value.Get<int32>())
+	FString keyName = key.GetDisplayName().ToString();
+	int32 num = FCString::Atoi(*keyName);
+	EKeyType keyType = StaticCast<EKeyType>(num);
+
+	switch (keyType)
 	{
-	case 1:
+	case EKeyType::KeyType1:
+	{
+		ACharacterPool* characterpool = ACharacterPool::GetInstance();
+		characterpool->CharacterRelease(num);
+		UnPossess();
+		characterpool->CharacterSwap(num);
+		OnPossess(characterpool->GetCharacterpool()[num - 1].swapCharacter);
+	}
 		break;
-	case 2:
+	case EKeyType::KeyType2:
+	{
+		ACharacterPool* characterpool = ACharacterPool::GetInstance();
+		characterpool->CharacterRelease(num);
+		UnPossess();
+		characterpool->CharacterSwap(num);
+		OnPossess(characterpool->GetCharacterpool()[num - 1].swapCharacter);
+	}
 		break;
 	default:
 		break;
-	}*/
+	}
+
 }

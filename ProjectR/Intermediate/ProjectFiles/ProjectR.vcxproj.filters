@@ -69,5 +69,11 @@
     <ClCompile Include="..\..\Source\ProjectR\TestCharacter.h">
       <Filter>Source\ProjectR</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ProjectR\TestCharacter2.cpp">
+      <Filter>Source\ProjectR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ProjectR\TestCharacter2.h">
+      <Filter>Source\ProjectR</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

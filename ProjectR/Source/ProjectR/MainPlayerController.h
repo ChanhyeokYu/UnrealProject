@@ -11,6 +11,14 @@ class UInputAction;
 
 struct FInputActionValue;
 
+UENUM(BlueprintType)
+enum class EKeyType : uint8
+{
+	KeyType0 = 0 UMETA(DisplayName = "Key Type 0"),
+	KeyType1 = 1 UMETA(DisplayName = "Key Type 1"),
+	KeyType2 = 2 UMETA(DisplayName = "Key Type 2"),
+
+};
 /**
  * 
  */
@@ -33,7 +41,8 @@ public:
 	void PlayerMove(const FInputActionValue& value);
 	void PlayerAction(const FInputActionValue& value);
 	void PlayerMouseMove(const FInputActionValue& value);
-	void PlayerUtils(const FInputActionValue& value);
+	void PlayerKey(FKey key);
+
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mapping")
@@ -48,5 +57,6 @@ public:
 	TSoftObjectPtr<UInputAction> _playerMouseMove = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TSoftObjectPtr<UInputAction> _PlayerUtils= nullptr;
+
 
 };

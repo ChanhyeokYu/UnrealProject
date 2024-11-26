@@ -17,6 +17,7 @@ struct FCharacterStruct
 	int32 characterNum;
 	AMainCharacter* swapCharacter;
 	bool characterFront = false;
+	bool isCharacter = false;
 };
 
 UCLASS()
@@ -39,6 +40,7 @@ public:
 
 protected:
 	// Called when the game starts or when spawned
+	virtual void PreInitializeComponents() override;
 	virtual void BeginPlay() override;
 
 public:	
@@ -47,13 +49,21 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	void CreatePool(UWorld* world);
+	void CreateCharacterPool();
+	
+public:
+	int32 GetCharacterIndex(int32 characterNum);
 
 public:
-	void CharacterInsert(AMainCharacter* mainCharacter);
-	AMainCharacter* CharacterAcquire(int32 characterNum);
+	void CharacterInsert(AMainCharacter* insertPlayer, int32 characterNum);
+	void CharacterRelease(int32 characterNum);
+	void CharacterSwap(int32 swapCharacterNum);
+
+	TArray<FCharacterStruct> GetCharacterpool() { return _characterPool; }
+	UWorld* _world = nullptr;
+
 private:
-private:
+
 	TArray<FCharacterStruct> _characterPool = {};
 	int32 _characterPoolSize = 4;
 	AActorPool* _actorPool;

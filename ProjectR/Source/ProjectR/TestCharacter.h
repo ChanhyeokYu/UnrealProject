@@ -21,5 +21,12 @@ public:
 	virtual void CharacterMove() override;
 	virtual void CharacterAction() override;
 	virtual	void CharacterMouseMove() override;
+
+public:
+	virtual int32 GetOwnNum() override { return _ownNum; }
+	virtual void SetOwnNum(int32 ownNum) override { _ownNum = ownNum; }
+
+private:
+	int32 _ownNum = 0;
 	
 };

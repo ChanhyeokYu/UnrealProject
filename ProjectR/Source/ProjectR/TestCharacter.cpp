@@ -11,14 +11,9 @@ ATestCharacter::ATestCharacter()
 void ATestCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	UWorld* world = GetWorld();
-	if (world)
-	{
-		ACharacterPool* characterPool = ACharacterPool::GetInstance();
-		characterPool->CreatePool(world);
- 		characterPool->CharacterInsert(characterPool->CharacterAcquire(1));
-	}
-
+	SetOwnNum(1);
+	ACharacterPool* characterPool = ACharacterPool::GetInstance();
+	characterPool->CharacterInsert(this, GetOwnNum());
 }
 
 void ATestCharacter::CharacterMove()
@@ -30,7 +25,6 @@ void ATestCharacter::CharacterMove()
 void ATestCharacter::CharacterAction()
 {
 	Super::CharacterAction();
-	UE_LOG(LogTemp, Log, TEXT("HI"));
 }
 
 void ATestCharacter::CharacterMouseMove()
