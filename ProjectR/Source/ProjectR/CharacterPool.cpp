@@ -71,7 +71,9 @@ void ACharacterPool::CharacterRelease(int32 characterNum)
 		return;
 	}
 	_characterPool[idx - 1].characterFront = false;
-
+	/*_characterPool[idx - 1].swapCharacter->SetActorEnableCollision(false);
+	_characterPool[idx - 1].swapCharacter->SetActorHiddenInGame(true);
+	_characterPool[idx - 1].swapCharacter->SetActorTickEnabled(false);*/
 }
 
 void ACharacterPool::CharacterSwap(int32 swapCharacterNum)
@@ -85,6 +87,9 @@ void ACharacterPool::CharacterSwap(int32 swapCharacterNum)
 	if (_characterPool[idx - 1].isCharacter)
 	{
 		_characterPool[idx - 1].characterFront = true;
+		/*_characterPool[idx - 1].swapCharacter->SetActorEnableCollision(true);
+		_characterPool[idx - 1].swapCharacter->SetActorHiddenInGame(false);
+		_characterPool[idx - 1].swapCharacter->SetActorTickEnabled(true);*/
 	}
 
 }

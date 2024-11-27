@@ -58,5 +58,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TSoftObjectPtr<UInputAction> _PlayerUtils= nullptr;
 
+public:
 
+	void OnPossess(APawn* pawn) override;
+	void OnUnPossess() override;
+
+private:
+	FVector _actorLocation = { 0,0,0 };
 };

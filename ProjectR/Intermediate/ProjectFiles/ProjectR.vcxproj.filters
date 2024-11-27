@@ -48,6 +48,12 @@
     <ClCompile Include="..\..\Source\ProjectR\MainCharacter.h">
       <Filter>Source\ProjectR</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ProjectR\MainGameModeBase.cpp">
+      <Filter>Source\ProjectR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ProjectR\MainGameModeBase.h">
+      <Filter>Source\ProjectR</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ProjectR\MainPlayerController.cpp">
       <Filter>Source\ProjectR</Filter>
     </ClCompile>

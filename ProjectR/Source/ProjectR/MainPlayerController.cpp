@@ -8,6 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include "MainCharacter.h"
 #include "CharacterPool.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 AMainPlayerController::AMainPlayerController()
@@ -20,6 +21,11 @@ void AMainPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	MappingContext();
+	//ACharacterPool* characterpool = ACharacterPool::GetInstance();
+	/*characterpool->CharacterRelease(num);
+	UnPossess();
+	characterpool->CharacterSwap(num);*/
+	//OnPossess(characterpool->GetCharacterpool()[0].swapCharacter);
 }
 
 void AMainPlayerController::SetupInputComponent()
@@ -131,13 +137,14 @@ void AMainPlayerController::PlayerKey(FKey key)
 	int32 num = FCString::Atoi(*keyName);
 	EKeyType keyType = StaticCast<EKeyType>(num);
 
+	//케이스 없애고 그냥 번호만 받아서 변경 고려
 	switch (keyType)
 	{
 	case EKeyType::KeyType1:
 	{
 		ACharacterPool* characterpool = ACharacterPool::GetInstance();
 		characterpool->CharacterRelease(num);
-		UnPossess();
+		OnUnPossess();
 		characterpool->CharacterSwap(num);
 		OnPossess(characterpool->GetCharacterpool()[num - 1].swapCharacter);
 	}
@@ -146,13 +153,62 @@ void AMainPlayerController::PlayerKey(FKey key)
 	{
 		ACharacterPool* characterpool = ACharacterPool::GetInstance();
 		characterpool->CharacterRelease(num);
-		UnPossess();
+		OnUnPossess();
 		characterpool->CharacterSwap(num);
 		OnPossess(characterpool->GetCharacterpool()[num - 1].swapCharacter);
+		
 	}
 		break;
 	default:
 		break;
 	}
 
+}
+
+void AMainPlayerController::OnPossess(APawn* pawn)
+{
+	/*AController* oldcontroller = pawn->GetController();
+	if (oldcontroller)
+	{
+		oldcontroller->UnPossess();
+		oldcontroller->Destroy();
+	}*/
+	Super::OnPossess(pawn);
+	check(pawn);
+	if (pawn)
+	{
+
+		/*SetViewTargetWithBlend(pawn, 0.5f, VTBlend_Linear);
+		pawn->bUseControllerRotationYaw = true;
+		if (UCharacterMovementComponent* moveComp = Cast<UCharacterMovementComponent>(pawn->GetMovementComponent()))
+		{
+			moveComp->bOrientRotationToMovement = false;
+		}*/
+		//pawn->EnableInput(this);
+		//FHitResult* HitResult;
+		pawn->SetActorEnableCollision(true);
+		pawn->SetActorHiddenInGame(false);
+		pawn->SetActorTickEnabled(true);
+		pawn->SetActorLocation(_actorLocation, false, nullptr, ETeleportType::TeleportPhysics);
+
+		/*pawn->AutoPossessPlayer = EAutoReceiveInput::Player0;
+		AttachToPawn(pawn);
+		AddPawnTickDependency(pawn);*/
+		
+	}
+}
+
+void AMainPlayerController::OnUnPossess()
+{
+	APawn* pawn = GetPawn();
+	check(pawn);
+	if (pawn)
+	{
+		_actorLocation = pawn->GetActorLocation();
+		pawn->SetActorEnableCollision(false);
+		pawn->SetActorHiddenInGame(true);
+		pawn->SetActorTickEnabled(false);
+	}
+
+	Super::OnUnPossess();
 }

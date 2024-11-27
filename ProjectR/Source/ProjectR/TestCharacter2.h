@@ -29,6 +29,8 @@ public:
 	virtual int32 GetOwnNum() override { return _ownNum; }
 	virtual void SetOwnNum(int32 ownNum) override { _ownNum = ownNum; }
 
+	void PossessedBy(AController* controller) override;
+
 private:
 	int32 _ownNum = 0;
 	

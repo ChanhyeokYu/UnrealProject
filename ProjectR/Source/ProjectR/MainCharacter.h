@@ -35,6 +35,12 @@ public:
 	virtual void SetOwnNum(int32 ownNum) { _ownNum = ownNum; }
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USpringArmComponent* SpringArmComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UCameraComponent* CameraComponent;
+
+protected:
 	int32 _ownNum = 0;
 	
 };
