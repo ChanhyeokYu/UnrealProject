@@ -49,5 +49,11 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
+void AMainCharacter::CharacterAction()
+{
+	CallAction_Blueprin();
+
+}
+
 
 

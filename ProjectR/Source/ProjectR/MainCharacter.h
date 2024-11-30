@@ -28,11 +28,16 @@ public:
 
 public:
 	virtual void CharacterMove() {};
-	virtual void CharacterAction() {};
+	virtual void CharacterAction();
 	virtual	void CharacterMouseMove() {};
 
 	virtual int32 GetOwnNum() { return _ownNum; }
 	virtual void SetOwnNum(int32 ownNum) { _ownNum = ownNum; }
+
+public:
+	UFUNCTION(BlueprintImplementableEvent, Category = "InPutFunction", DisplayName = "ActionInput")
+	void CallAction_Blueprin();
+
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
